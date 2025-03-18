@@ -7,6 +7,7 @@ import getFeedback from './feedback';
  * Test då alla tecken är felaktiga
  * Alla tecken finns med men är felplacerade
  * Blandning av felplacerade och inkorrekta tecken
+ * Test där ett tecken förekommer fler gånger än i det korrekta ordet.
  * Case sensitivity för alla fyra ovanstående tester
  * Fler av ett tecken i gissningen än i det korrekta ordet
  * Tom gissning
@@ -27,6 +28,12 @@ describe('Tests for feedback algorithm', () => {
         );
         expect(result).toHaveLength(5);
 
+    });
+
+    it('should give test if guess is longer then word', () => {
+        const result = getFeedback('AABBBB', 'AABBB');
+        expect(result).toHaveLength(0);
+        
     });
 
     it('should test that all chars is incorrect', () => {
