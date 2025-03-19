@@ -1,5 +1,5 @@
 import { describe, it } from '@jest/globals';
-import getFeedback from './feedback';
+import getFeedback from '../js/wordle.js';
 
 
 /**
@@ -11,11 +11,11 @@ import getFeedback from './feedback';
  * 1. **Alla bokstäver korrekta**: Varje tecken i gissningen matchar exakt motsvarande tecken i det korrekta ordet.
  * 2. **Alla bokstäver felaktiga**: Inga tecken i gissningen finns i det korrekta ordet.
  * 3. **Alla bokstäver felplacerade**: Alla tecken finns i det korrekta ordet men är på fel plats.
- * 4. **Blandning av felplacerade och **
- * 4. **Blandning av korrekta, felplacerade och felaktiga bokstäver**.
- * 5. **Dubbla bokstäver som överskrider antalet i det korrekta ordet**: Gissningen innehåller fler förekomster av en bokstav än vad som finns i det korrekta ordet.
+ * 4. **Blandning av felaktiga och korrekta ord**
+ * 5. **Blandning av korrekta, felplacerade och felaktiga bokstäver**.
+ * 6. **Dubbla bokstäver som överskrider antalet i det korrekta ordet**: Gissningen innehåller fler förekomster av en bokstav än vad som finns i det korrekta ordet.
  * 7. **Tom gissning**: Säkerställer att en tom inmatning hanteras korrekt.
- * 6. **Skiftlägeskänslighet (case sensitivity)**: Säkerställer att stora och små bokstäver behandlas likadant för alla ovanstående tester.
+ * 8. **Skiftlägeskänslighet (case sensitivity)**: Säkerställer att stora och små bokstäver behandlas likadant för alla ovanstående tester.
  */
 
 describe('Tests for feedback algorithm', () => {
@@ -43,7 +43,7 @@ describe('Tests for feedback algorithm', () => {
 
     it('should test that all chars is incorrect', () => {
         const result = getFeedback('VÄNDA', 'SKOGS');
-        console.log(result);
+
         expect(result).toEqual(
             [
                 { letter: 'V', result: 'incorrect' },
@@ -69,6 +69,21 @@ describe('Tests for feedback algorithm', () => {
             ]
         );
         expect(result).toHaveLength(5);
+    });
+
+    it('should check for correct and incorrect letters', () => {
+        const result = getFeedback('SKIFT', 'SKOTT');
+
+        expect(result).toHaveLength(5);
+        expect(result).toEqual(
+            [
+                { letter: 'S', result: 'correct' },
+                { letter: 'K', result: 'correct' },
+                { letter: 'I', result: 'incorrect' },
+                { letter: 'F', result: 'incorrect' },
+                { letter: 'T', result: 'correct' }
+            ]
+        );
     });
 
     it('shold check for correct, misplaced and incorrect letters', () => {
@@ -111,7 +126,7 @@ describe('Tests for caseSensitivity', () => {
 
     it('should test that all chars is incorrect', () => {
         const result = getFeedback('vända', 'SKOGS');
-        console.log(result);
+
         expect(result).toEqual(
             [
                 { letter: 'V', result: 'incorrect' },
