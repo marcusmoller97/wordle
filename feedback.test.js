@@ -3,16 +3,21 @@ import getFeedback from './feedback';
 
 
 /**
- * Test då alla tecken är korrekta
- * Test då alla tecken är felaktiga
- * Alla tecken finns med men är felplacerade
- * Blandning av felplacerade och inkorrekta tecken
- * Test där ett tecken förekommer fler gånger än i det korrekta ordet.
- * Case sensitivity för alla fyra ovanstående tester
- * Fler av ett tecken i gissningen än i det korrekta ordet
- * Tom gissning
+ * Testtäckningsstrategi:
  * 
+ * Testerna säkerställer att feedback-algoritmen korrekt identifierar de viktigaste matchningsfall.
+ * Följande scenarier testas:
+ * 
+ * 1. **Alla bokstäver korrekta**: Varje tecken i gissningen matchar exakt motsvarande tecken i det korrekta ordet.
+ * 2. **Alla bokstäver felaktiga**: Inga tecken i gissningen finns i det korrekta ordet.
+ * 3. **Alla bokstäver felplacerade**: Alla tecken finns i det korrekta ordet men är på fel plats.
+ * 4. **Blandning av felplacerade och **
+ * 4. **Blandning av korrekta, felplacerade och felaktiga bokstäver**.
+ * 5. **Dubbla bokstäver som överskrider antalet i det korrekta ordet**: Gissningen innehåller fler förekomster av en bokstav än vad som finns i det korrekta ordet.
+ * 7. **Tom gissning**: Säkerställer att en tom inmatning hanteras korrekt.
+ * 6. **Skiftlägeskänslighet (case sensitivity)**: Säkerställer att stora och små bokstäver behandlas likadant för alla ovanstående tester.
  */
+
 describe('Tests for feedback algorithm', () => {
     it('should test when all chars correct', () => {
         const result = getFeedback('CYKLA', 'CYKLA');
@@ -30,10 +35,10 @@ describe('Tests for feedback algorithm', () => {
 
     });
 
-    it('should give test if guess is longer then word', () => {
+    it('should return empty array', () => {
         const result = getFeedback('AABBBB', 'AABBB');
         expect(result).toHaveLength(0);
-        
+
     });
 
     it('should test that all chars is incorrect', () => {
