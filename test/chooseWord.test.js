@@ -4,12 +4,11 @@ import { chooseWord } from '../js/wordle.js';
 /**
  * Test för längd:
  * Kontrollera att funktion tar hänsyn till rätt längd och att ord med korrekt längd sorteras bort.
- * Testa för stora värden på ord.
- * Testa för små värden på ord.
- * Testa för uniqueLetters högre längd än tillgängliga ord. 
- * Testa när du angivit en ordlängd som är större än de ord som finns i listan 
- * Kontrollera att ord med unika bokstäver finns kvar och att ord där samma bokstav förekommer flera gånger sorteras bort.
- * Kontrollera att alla ord bevaras om de har rätt längd oavsett situation.
+ * a. Testa för stora värden på ord. DONE
+ * b. Testa för små värden på ord. DONE
+ * Testa då uniqueLetters är true att ord som innehåller likadan tecken inte kan väljas bland.
+ *  a. Testa för stora värden på ord.
+ *  b. Testa för små värden på ord. 
  * Test när ordlistan som skickas in är tom. DONE
  */
 
@@ -84,6 +83,74 @@ describe('tests for chooseWord', () => {
         Math.random.mockRestore();
 
     });
+
+    it(
+        'should give a string of length 6 where the chars in the word is unique and test the last element from the array',
+        () => {
+            const wordList = [
+                "PYTHON",
+                "JUMPED",
+                "FROG",
+                "BRICK",
+                "WAVES",
+                "GLYPH",
+                "EXACT",
+                "MUZIC",
+                "VORTEX",
+                "CANDLE"
+            ];
+            jest.spyOn(Math, 'random').mockReturnValue(0.99);
+
+            const result = chooseWord(wordList, 6, true);
+            expect(result.length).toBe(6);
+            expect(result).toBe('CANDLE');
+
+            Math.random.mockRestore();
+        });
+
+    it('should test uniqLetters=true where length is 6 and return the first element.', () => {
+        const wordList = [
+            "PYTHON",
+            "JUMPED",
+            "FROG",
+            "BRICK",
+            "WAVES",
+            "GLYPH",
+            "EXACT",
+            "MUZIC",
+            "VORTEX",
+            "CANDLE"
+        ];
+        jest.spyOn(Math, 'random').mockReturnValue(0);
+
+        const result = chooseWord(wordList, 6, true);
+        expect(result.length).toBe(6);
+        expect(result).toBe('PYTHON');
+
+        Math.random.mockRestore();
+    })
+
+    it('should test uniqLetters=true where length is 6 and return the second element.', () => {
+        const wordList = [
+            "PYTHON",
+            "JUMPED",
+            "FROG",
+            "BRICK",
+            "WAVES",
+            "GLYPH",
+            "EXACT",
+            "MUZIC",
+            "VORTEX",
+            "CANDLE"
+        ];
+        jest.spyOn(Math, 'random').mockReturnValue(0.5);
+
+        const result = chooseWord(wordList, 6, true);
+        expect(result.length).toBe(6);
+        expect(result).toBe('VORTEX');
+
+        Math.random.mockRestore();
+    })
 
     it('should return null if no words match the length', () => {
 
