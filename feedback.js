@@ -23,8 +23,8 @@ export default function getFeedback (guess, word) {
     if (!(word.length !== guess.length)) {
 
         // count occurence of words and store them in a object.
-        for (const ele of word) {
-            ele.toUpperCase();
+        for (let ele of word) {
+            ele = ele.toUpperCase();
             letterCount[ele] = (letterCount[ele.toUpperCase] || 0) + 1;
         }
 
@@ -53,5 +53,3 @@ export default function getFeedback (guess, word) {
 
     return feedback;
 }
-
-console.log(getFeedback('BOMm', 'MORAL'));
