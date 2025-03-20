@@ -4,12 +4,12 @@ import { chooseWord } from '../js/wordle.js';
 /**
  * Test för längd:
  * Kontrollera att funktion tar hänsyn till rätt längd och att ord med korrekt längd sorteras bort.
- * a. Testa för stora värden på ord. DONE
- * b. Testa för små värden på ord. DONE
+ * a. Testa för stora värden på ord.
+ * b. Testa för små värden på ord.
  * Testa då uniqueLetters är true att ord som innehåller likadan tecken inte kan väljas bland.
  *  a. Testa för stora värden på ord.
  *  b. Testa för små värden på ord. 
- * Test när ordlistan som skickas in är tom. DONE
+ * Test när ordlistan som skickas in är tom.
  */
 
 describe('tests for chooseWord', () => {
@@ -128,7 +128,7 @@ describe('tests for chooseWord', () => {
         expect(result).toBe('PYTHON');
 
         Math.random.mockRestore();
-    })
+    });
 
     it('should test uniqLetters=true where length is 6 and return the second element.', () => {
         const wordList = [
@@ -150,7 +150,7 @@ describe('tests for chooseWord', () => {
         expect(result).toBe('VORTEX');
 
         Math.random.mockRestore();
-    })
+    });
 
     it('should return null if no words match the length', () => {
 
