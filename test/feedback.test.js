@@ -168,4 +168,19 @@ describe('Tests for caseSensitivity', () => {
             ]
         );
     });
+
+    it('shold check for correct, misplaced and incorrect letters', () => {
+        const result = getFeedback('uarar', 'urare');
+
+        expect(result).toHaveLength(5);
+        expect(result).toEqual(
+            [
+                { letter: 'U', result: 'correct' },
+                { letter: 'A', result: 'misplaced' },
+                { letter: 'R', result: 'misplaced' },
+                { letter: 'A', result: 'incorrect' },
+                { letter: 'R', result: 'misplaced' }
+            ]
+        );
+    });
 });
